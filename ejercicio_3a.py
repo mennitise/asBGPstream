@@ -13,7 +13,7 @@ COLLECTOR_WIDE = 'route-views.wide'
 # AS target
 # ASN: 8966
 # ASname: Etisalat
-targetAS = 2914
+targetAS = 8966
 
 #---------------------------------------------------------
 
