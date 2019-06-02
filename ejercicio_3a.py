@@ -13,12 +13,7 @@ COLLECTOR_WIDE = 'route-views.wide'
 # AS target
 # ASN: 8966
 # ASname: Etisalat
-targetAS = 8966
-
-# ISP
-# ASN: 2914
-# ASname: NTT-COMMUNICATIONS
-ISPTargetAS = 2914
+targetAS = 2914
 
 #---------------------------------------------------------
 
@@ -35,8 +30,7 @@ index = 0
 PREFIXES = []
 for elem in stream:
 	prefix = elem.fields['prefix']
-	originAS = elem.fields['as-path'].split(" ")[-1]
-	if str(originAS) == str(targetAS):
+	if str(targetAS) in str(elem.fields['as-path'].split(" ")):
 		if str(prefix) not in PREFIXES:
 			PREFIXES.append(prefix)
 			index += 1
