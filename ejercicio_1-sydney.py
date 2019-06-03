@@ -8,18 +8,12 @@ import numpy as np
 TIME_INIT = "2018-03-01"
 TIME_END = "2018-03-01 00:05"
 
-# TIME_INIT = "2012-03-01"
-# TIME_END = "2012-03-01 00:05"
-
-COLLECTOR_WIDE = 'route-views.wide'
-COLLECTOR_SIDNEY = 'route-views.sydney'
+COLLECTOR = 'route-views.sydney'
 
 # AS target
 # ASN: 8966
 # ASname: Etisalat
 targetAS = 8966
-
-ISPTargetAS = 2914
 
 #---------------------------------------------------------
 
@@ -27,7 +21,7 @@ ISPTargetAS = 2914
 stream = pybgpstream.BGPStream(
 		from_time=TIME_INIT,
 		until_time=TIME_END,
-		filter="type ribs and collector %s and path %s"%(COLLECTOR_WIDE,targetAS))
+		filter="type ribs and collector %s and path %s"%(COLLECTOR,targetAS))
 
 #---------------------------------------------------------
 
@@ -39,12 +33,15 @@ print '-------------------------'
 print ''
 
 index = 0
+ASPATHs = []
 ASPATHS_v=[]
 for elem in stream:
 	if str(elem.fields['as-path'].split(' ')[-1]) == str(targetAS):
-		index += 1
-		print str(index)+' - '+elem.fields['as-path']
-		ASPATHS_v.append(np.array(elem.fields["as-path"].split(' ')).astype(int))
+		if elem.fields['as-path'] not in ASPATHs:
+			index += 1
+			ASPATHs.append(elem.fields['as-path'])
+			print str(index)+' - '+elem.fields['as-path']
+			ASPATHS_v.append(np.array(elem.fields["as-path"].split(' ')).astype(int))
 
 #---------------------------------------------------------
 
