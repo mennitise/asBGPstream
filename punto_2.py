@@ -1,6 +1,7 @@
 import pybgpstream
 import pprint
 import numpy as np
+import csv
 
 #---------------------------------------------------------
 
@@ -29,14 +30,13 @@ for elem in stream:
  	path = str(elem.fields['as-path'])
  	ROWS.add((AS_ID, network, next_hop, path))
 
-print "Full-Routing Table - desagregada"
-print "Network\t\t\tNext Hop\t\tMetric\t\tLocPrf\t\tWeight\t\tPath"
-idx = 0
-for elem in ROWS:
-	print str(elem[1]) + "   \t" + str(elem[2]) + "\t\t" + "0\t\t" + "0\t\t" + "0\t\t" + str(elem[3])
-	idx += 1
-	if (idx == 20):
-		break
 
-# print len(ROWS)
-#print ROWS
+
+with open('full_RIB_desagregada.csv', mode='w') as rib_desagregada:
+    rib_writer = csv.writer(rib_desagregada)
+    rib_writer.writerow(['Network', 'Next Hop', 'Metric', 'LocPrf', 'Weight', 'Path'])
+	
+    for elem in ROWS:
+		rib_writer.writerow([str(elem[1]), str(elem[2]), '0', '0', '0', str(elem[3])])
+	
+    rib_desagregada.close()
