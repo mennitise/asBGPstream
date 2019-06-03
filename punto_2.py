@@ -37,6 +37,11 @@ with open('full_RIB_desagregada.csv', mode='w') as rib_desagregada:
     rib_writer.writerow(['Network', 'Next Hop', 'Metric', 'LocPrf', 'Weight', 'Path'])
 	
     for elem in ROWS:
-		rib_writer.writerow([str(elem[1]), str(elem[2]), '0', '0', '0', str(elem[3])])
+		network = str(elem[1])
+		next_hop = str(elem[2])
+		path = str(elem[3])
+		rib_writer.writerow([network, next_hop, '0', '0', '0', path])
 	
     rib_desagregada.close()
+
+print ('Full RIB desagregada, de tamano ' + str(len(ROWS)) + ' correctamente guardada en full_RIB_desagregada.csv')
