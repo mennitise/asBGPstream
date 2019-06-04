@@ -106,7 +106,7 @@ for elem in post_stream:
 
 if len_previous == 0 or len_current == 0 or len_post == 0:
 	print "Some RIB is empty for the specified times\n"
-	return 0
+	sys.exit(0)
 
 #---------------------------------------------------------
 
@@ -137,12 +137,15 @@ for key in keys:
 							if PREVIOUS_TARGET_AS_BY_PREFIX[auxIP] == POST_TARGET_AS_BY_PREFIX[key]:
 								print '\n	Possible hijacking prefix:'
 								print '		prefix: '+key
-								print '		Target ASes in RIB 1: ' + str(CURRENT_TARGET_AS_BY_PREFIX[key])
-								print '		Target ASes in RIB 2: ' + str(POST_TARGET_AS_BY_PREFIX[key])
+								print '		prefix previous RIB: '+auxIP
+								print '		Target ASes in Previous RIB: ' + str(PREVIOUS_TARGET_AS_BY_PREFIX[auxIP])
+								print '		Target ASes in Current RIB: ' + str(CURRENT_TARGET_AS_BY_PREFIX[key])
+								print '		Target ASes in Post RIB: ' + str(POST_TARGET_AS_BY_PREFIX[key])
 								break
 			else:
 				if PREVIOUS_TARGET_AS_BY_PREFIX[key] == POST_TARGET_AS_BY_PREFIX[key]:
 					print '\n	Possible hijacking prefix:'
 					print '		prefix: '+key
-					print '		Target ASes in RIB 1: ' + str(CURRENT_TARGET_AS_BY_PREFIX[key])
-					print '		Target ASes in RIB 2: ' + str(POST_TARGET_AS_BY_PREFIX[key])
+					print '		Target ASes in Previous RIB: ' + str(PREVIOUS_TARGET_AS_BY_PREFIX[key])
+					print '		Target ASes in Current RIB: ' + str(CURRENT_TARGET_AS_BY_PREFIX[key])
+					print '		Target ASes in Post RIB: ' + str(POST_TARGET_AS_BY_PREFIX[key])
